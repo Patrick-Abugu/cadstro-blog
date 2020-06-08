@@ -39,4 +39,5 @@ tzlocal==2.1
 Unidecode==1.1.1
 virtualenv==20.0.20
 webencodings==0.5.1
+whitenoise==5.1.0
 zipp==3.1.0
