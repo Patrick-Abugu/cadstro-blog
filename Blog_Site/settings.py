@@ -25,7 +25,7 @@ SECRET_KEY = '_&fe2yuw6&6f20gghqk($qqdl&q=)@4y8nz3-z6$w6zwr9o4$&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 if DEBUG:
     EMAIL_BACKEND = 'django.core.email.backends.console.EmailBackend'
 
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Blog_Site.urls'
