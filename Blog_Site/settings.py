@@ -141,3 +141,5 @@ EMAIL_HOST_USER = 'patrickabugu@gmail.com'
 EMAIL_HOST_PASSWORD = '...abugu..5050'
 #LOGIN_REDIRECT_URL = '/'
 #LOGOUT_REDIRECT_URL = '/'
+import django_heroku
+django_heroku.settings(locals())
