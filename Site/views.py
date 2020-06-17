@@ -31,7 +31,7 @@ def home(request):
     if request.GET:
         query = request.GET('q')
     context = {'contents': page, 'form':form, 'next_page_url':next_link, 'prev_page_url':prev_link, 'old':old, 'query':str(query)}
-    return render(request, 'site/home.html', context )    #pass a dictionanr of posts and form in the home page
+    return render(request, 'Site/home.html', context )    #pass a dictionanr of posts and form in the home page
 
 
 
@@ -50,11 +50,11 @@ def post_body(request, slug):   # pass a value of request and slug to post body 
             comment.post = post     #assign this comment to this post before saving
             comment.save()
             messages.success(request, "Your Comment is awaiting approval.Thank you")
-            return redirect('site:details', slug)   #refresh after saving
+            return redirect('Site:details', slug)   #refresh after saving
     else:
         comment_form = CommentForm()
     context = {'details': details,'comments':comments,'comment_form':comment_form, 'form': form, 'post':post}
-    return render(request, 'site/post_body.html', context)
+    return render(request, 'Site/post_body.html', context)
 
 
 #views for create post form
@@ -68,10 +68,10 @@ def create_post(request):
             instance.user = request.user #instance.user this user is the one i created as post author in models
             instance.save()
             #save ends
-            return redirect('site:home')
+            return redirect('Site:home')
     else:
         form = forms.CreatePost()
-    return render(request, 'site/create_post.html', {'form': form})
+    return render(request, 'Site/create_post.html', {'form': form})
 
 
 def feedback(request):
@@ -88,9 +88,9 @@ def feedback(request):
                 send_mail(subject, message, email,  ['patrickabugu@gmail.com'])
             except BadHeaderError:
                 return HttpResponse('Feedback not sent! Try again')
-            return redirect('site.home')
+            return redirect('Site.home')
 
-    return render(request, 'site/home.html', {'form':form})
+    return render(request, 'Site/home.html', {'form':form})
 
 
 
@@ -106,14 +106,14 @@ def editpost(request, slug = None ):
                     obj.save()
                     messages.success(request, "Your post has been successfully updated")
                     context = {'form':form}
-                    return render(request, 'site/edited_post.html', context)
+                    return render(request, 'Site/edited_post.html', context)
                 else:
                     context = {'form': form, 'error': "The post was not successfully updated. Try again"}
-                    return render(request, 'site/edit_post.html', context)
+                    return render(request, 'Site/edit_post.html', context)
             else:
                 form = forms.CreatePost(request.GET or None, request.FILES or None, instance = instance)
                 context = {'form':form}
-                return render(request, 'site/edit_post.html', context)
+                return render(request, 'Site/edit_post.html', context)
     else:
         return HttpResponse('You are an idiot!\n This is not your post') # if he/seh doesntown the post insult him
 
