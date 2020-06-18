@@ -1,0 +1,14 @@
+{% extends 'site/base.html' %}
+{% block content %}
+
+{% if submitbutton == 'Search' and request.GET.q != ''%}
+{% if results %}
+{% for result in results %}
+  <p>{{result.title}}</p>
+  <p>{{result.body}}</p> <br>
+{% endfor %}
+{% else %}
+<p class="sub"> No result for your search: "{{q}}"</p>
+{% endif %}
+{% endif %}
+{% endblock %}

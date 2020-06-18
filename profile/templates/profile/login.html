@@ -1,0 +1,18 @@
+{% extends 'site/base.html' %}
+{% block content %}
+<div class="login">
+    <h3 class="sub"> Please provide your Login details </h3>
+    <form class="site-form" action= "{% url 'profile:login'%}"  method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    {% if request.GET.next %}
+        <input type="hidden" name="next" value="{{request.GET.next }}">
+    {% endif %}
+    <br />
+        <input id="login"type="submit" value="Log in" onsubmit="login()">
+    </form>
+<br />
+<br />
+    <p> Or <a class= "site-link" href=" {% url 'profile:signup' %} "> SIGN UP </a> to create an account with us</p>
+</div>
+{% endblock %}

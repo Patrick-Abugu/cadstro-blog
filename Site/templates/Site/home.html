@@ -1,0 +1,57 @@
+{% extends 'site/base.html' %}
+{% block content %}
+
+{% if submitbutton == 'Search' and request.GET.q != ''%}
+{% if results %}
+{% for result in results %}
+  <p>{{result.title}}</p>
+  <p>{{result.body}}</p> <br>
+{% endfor %}
+{% else %}
+<p class="sub"> No result for your search: "{{q}}"</p>
+{% endif %}
+{% endif %}
+<p class="latest"> Latest News </p>
+<div class="home">
+  <div class="float">
+      {% for post in contents.object_list %}
+      <div class="post">
+        <a class=" title" href="{% url 'site:details' slug=post.slug %}">{{post.title}}</a>
+        <a href="{% url 'site:details' slug=post.slug %}"><img src="{{ post.get_image_url}}" class="thumb" alt=""></a>
+        <p> {{ post.snippet|safe|linebreaks}}</p>
+        <p class="comment">({{ post.comments.count }}) Comments </p>
+        <p class="author"><i class="fa fa-user " style = "color: red"> </i>  {{ post.user  }}  |  <i class="fa fa-calendar" style = "color: red"> </i>  {{post.date}}</p>
+        <p><a class="more" href="{% url 'site:details' slug=post.slug %}">Read More <i class="fa fa-angle-double-right"></i></a>  </p>
+      </div>
+      {% endfor %}
+  </div>
+
+  <div class="float1">
+      <p class="old"> Older News </p>
+        {% include 'Site/older.html' %}
+  </div>
+  </div>
+
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item {% if not prev_page_url%} disabled {% endif %} ">
+      <a class="page-link" href="{{prev_page_url}}" tabindex="-1" aria-disabled="true"> <i class="fa fa-angle-double-left"></i>  Previous Page</a>
+    </li>
+
+    <li class="page-item {% if not next_page_url%} disabled {% endif %} ">
+      <a class="page-link" href="{{next_page_url}}" >Next Page  <i class="fa fa-angle-double-right"></i></a>
+    </li>
+  </ul>
+</nav>
+
+<div class="feedback">
+  <p class="sub"> Send us your feedback</p>
+  <form class="Feedbackform" action="{% url 'site:feedback'%}" method="post" enctype="multipart/form-data">
+    {% csrf_token%}
+    {{form.as_p}}
+    {{form.media}}
+    <p><input class="send" type="submit" value="Submit"></p>
+  </form>
+</div>
+
+{% endblock %}
