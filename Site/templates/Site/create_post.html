@@ -1,0 +1,13 @@
+{% extends 'site/base.html' %}
+{% block content %}
+    <div class="Create">
+        <h2 class="sub"> Create your Post here </h2>
+        <form name="site-form" action="{% url 'site:create_post' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.media}}  <!-- This will help display the ckeditor RichTextField-->
+            {{form.as_p}}<br />
+         <input type="submit" value="create" onsubmit="createPost()">
+        </form>
+    </div>
+
+{% endblock %}

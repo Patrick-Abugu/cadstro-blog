@@ -1,0 +1,50 @@
+{% extends 'site/base.html'%}
+{% block content %}
+<div class="home">
+    <div class="details_div">
+        <div class="title"> {{details.title}}  </div>
+      <div class="image1-div">
+          <img id="thumb" src="{{ details.get_image_url}}"/>
+      </div>
+        <p class="body">{{details.body|safe|linebreaks}} </p> <!-- Safe and linebreaks tells html to render it sas a html doc-->
+        <p class="details_author"><i class="fa fa-user " style = "color: red"> </i>  {{ details.user  }}  |  <i class="fa fa-calendar" style = "color: red"> </i>  {{details.date}}</p>
+
+        {% if request.user == details.user %} <!-- this checks if the user requesting the post details is the same as the owner of the post-->
+          <a href="{% url 'site:edit' details.slug %}"> Edit Post</a>
+        {% endif %}
+
+        <hr>
+
+        <div class="">
+          <p class="comment">({{ post.comments.count }}) Comments </p><a href="#comment"> Add comment </a>
+        </div>
+        {% for comment in comments %}
+          <div class="comments">
+            <p style="color:#912023"> <i class="fa fa-user fa-3x"  style=" float:left, margin-right:5px"> </i>{% if user == details.user %} {{user}} {% else %} {{comment.name}} {% endif %}</p>
+            <p> {{comment.text| linebreaks}}</p>
+            <p class="comment_author">{{comment.created_on}} </p>
+            <!-- So this is what i did here, if a user is logged in and he is comenting on his own post, display his user name, instead display the name he entered-->
+          </div>
+
+        {% empty %}
+          <p> No comments yet </p>
+        {% endfor %}
+        {% include 'site/comments.html' %}
+    </div>
+
+    <div class="float1">
+        <p class="old"> Older News </p>
+          {% include 'site/older.html' %}
+    </div>
+</div>
+
+<div class="feedback">
+  <p class="sub"> Send us your feedback</p>
+  <form class="Feedbackform" action="{% url 'site:feedback'%}" method="post" enctype="multipart/form-data">
+    {% csrf_token%}
+    {{form.as_p}}
+    {{form.media}}
+    <p><input class="send" type="submit" value="Send"></p>
+  </form>
+</div>
+{% endblock %}

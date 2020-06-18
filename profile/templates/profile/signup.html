@@ -1,0 +1,18 @@
+{% extends 'site/base.html' %}
+{% block content %}
+<div class="login">
+    <h3 class="sub"> Create Account </h3>
+    <form action="{% url 'profile:signup' %}" class="site-form" method="post">
+    {% csrf_token %}
+    {{form}} <br/>
+    <input class="submit" type="submit" value="Sign Up" onsubmit="signup()">
+    </form>
+<br />
+<br />
+    <p>Already have an account?</p><br/>
+    <form action="{% url 'profile:login' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" onsubmit="login()"> Login </button>
+    </form>
+</div>
+{% endblock%}

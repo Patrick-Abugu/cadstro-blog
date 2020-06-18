@@ -1,0 +1,12 @@
+
+{% block content %}
+
+<div class="older-container">
+  {% for posts in old %}
+  <div class="small_post">
+    <a href="{% url 'site:details' slug=posts.slug %}"><img src="{{ posts.image.url}}" class="small_thumb" alt=""><span class="small_title"> {{posts.title}}</span></a>
+    </div>
+   {% endfor %}
+</div>
+
+{% endblock %}

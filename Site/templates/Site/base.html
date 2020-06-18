@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta property="og:image" content="" />
+    <meta property="og:site_name" content="News Channel" />
+    <meta name="description" content="News Channel is a news site dedicated to providing first class information on News, sports, entertainment, transport, fashion, religion and ...Gist**">
+    <meta name="keywords" content="News, Blog, news channel, News, sports news, entertainment news, transport news, fashion news, religion news, Gist">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title class="head">News Channel</title>
+    <link rel="stylesheet" href="{% static 'home.css'%}" >
+    <link media="only screen and (min-width:882px) " rel="stylesheet" href="{% static 'landscape.css'%}" type="text/css" >
+</head>
+<body>
+        <div class="header">
+          <a href="{% url 'site:home' %}" class="head">
+            <p class="welcome"> Welcome to my News channel Blog</p>
+            <p> News | Sport | Entertainment | Transport | Fashion | Religion | Gist**</p></a>
+          <ul class="navigation">
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'site:home' %}">HOME <i class="fa fa-home" style = "color: blue"></i></a></li>
+              <li><a class="create_link" href= "{% url 'site:create_post' %}"> Create Post </a></li>
+              <li><form action="{% url 'profile:logout' %}" method="post" onsubmit="logout()"></p>
+                {% csrf_token %}
+                <button class="logout" type="submit" > Logout </button>
+                </form></li>
+              {% else %}
+              <li><a href="{% url 'site:home' %}">HOME <i class="fa fa-home" color: blue></i></a></li>
+              <li><a href="{% url 'profile:login' %}" onclick="login()">LOGIN</a></li>
+              <li><a href="{% url 'profile:signup' %}">SIGNUP</a></li>
+              <li><a class="create_link" href= "{% url 'site:create_post' %}"> Create Post </a></li>
+              {% endif %}
+              </ul>
+            </div>
+
+  <!--header ends-->
+
+{% block content %}
+{% endblock %}
+
+
+       <div class="foot">
+         <hr /> News Channel <br />
+          &copy 2020<br />
+          Designed by <a href="https://www.cadstro.com.ng">Cadstro</a>
+       </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src ="/static/js/fill slug.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script type="text/javascript">
+      var a = document.getElementById('id_q')
+      a.value="{{query}}"
+    </script>
+</body>
+</html>
