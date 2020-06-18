@@ -50,7 +50,7 @@ def post_body(request, slug):   # pass a value of request and slug to post body 
             comment.post = post     #assign this comment to this post before saving
             comment.save()
             messages.success(request, "Your Comment is awaiting approval.Thank you")
-            return redirect('Site:details', slug)   #refresh after saving
+            return redirect('site:details', slug)   #refresh after saving
     else:
         comment_form = CommentForm()
     context = {'details': details,'comments':comments,'comment_form':comment_form, 'form': form, 'post':post}
@@ -68,7 +68,7 @@ def create_post(request):
             instance.user = request.user #instance.user this user is the one i created as post author in models
             instance.save()
             #save ends
-            return redirect('Site:home')
+            return redirect('site:home')
     else:
         form = forms.CreatePost()
     return render(request, 'Site/create_post.html', {'form': form})
@@ -88,7 +88,7 @@ def feedback(request):
                 send_mail(subject, message, email,  ['patrickabugu@gmail.com'])
             except BadHeaderError:
                 return HttpResponse('Feedback not sent! Try again')
-            return redirect('Site.home')
+            return redirect('site:home')
 
     return render(request, 'Site/home.html', {'form':form})
 
